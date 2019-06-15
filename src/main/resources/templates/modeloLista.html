@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layoutPadrao}">
+<head>
+<meta charset="UTF-8">
+<title>Lista de Modelos</title>
+</head>
+<body>
+	
+	<section layout:fragment="conteudo">
+		<h1 class="text-center">Lista de Modelos</h1>
+		<div class="container">
+		<table class="table table-striped" border="1">
+			<thead>
+				<tr>
+					<th>Id</th>
+					<th>Descricao</th>
+					<th>Fabricante</th>
+					<th>Categoria</th>
+					<th>Ação</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="modelo : ${modelo}">
+					<td th:text="${modelo.id}"></td>
+					<td th:text="${modelo.descricao}"></td>
+					<td th:text="${modelo.fabricante.nome}"></td>
+					<td th:text="${modelo.categoria.descricao}"></td>
+					<td><a class="btn btn-success" th:href="@{/modelo/editar/{id}(id=${modelo.id})}">Editar</a>
+						<a class="btn btn-danger" onclick="return confirm('Confirma a exclusão?')"
+						th:href="@{/modelo/excluir/{id}(id=${modelo.id})}"> Excluir</a></td>
+				</tr>
+				<tr  th:if="${#lists.isEmpty(modelo)}">
+					<td colspan="8">Nenhuma serie cadastrada</td>
+				</tr>
+			</tbody>
+		</table>
+		</div>
+	</section>
+
+</body>
+</html>

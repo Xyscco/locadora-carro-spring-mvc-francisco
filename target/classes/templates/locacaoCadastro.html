@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layoutPadrao}">
+<head>
+<meta charset="UTF-8">
+<title>Cadastro de Locacao</title>
+</head>
+<body>
+	<section layout:fragment="conteudo">
+		<h1 class="text-center">Cadastro de Locacao</h1>
+		<div class="container shadow p-3 mb-5 bg-light rounded">
+		<form action="/locacao" method="POST" th:object="${locacao}">
+
+			<!-- Erros -->
+			<div th:replace="mensagemErro"></div>
+
+			<!-- Mensagem Geral -->
+			<div th:replace="mensagemGeral"></div>
+
+			<input type="hidden" th:field="*{id}" /> 
+			
+			<div class="form-group">
+			<label for="valorTotal">Valor Total: </label> 
+			<input class="form-control" id="valorTotal" type="text" th:field="*{valorTotal}" />
+			</div>
+			
+			<div class="form-group">
+			<label for="dataDeLocacao">Data de locação: </label> 
+			<input class="form-control" id="dataDeLocacao" type="date" th:field="*{dataDeLocacao}" />
+			</div>
+			
+			<div class="form-group">
+			<label for="dataDeDevolucao">Data de devolução: </label> 
+			<input class="form-control" id="dataDeDevolucao" type="date" th:field="*{dataDeDevolucao}" />
+			</div>
+			
+			<div class="form-group">
+			<label for="carro">Carro: </label> 
+			<select class="form-control" id="carro" th:field="*{carro}">
+				<option value="">SELECIONE</option>
+				<option th:each="carro : ${todosCarros}" th:text="${carro.placa}"
+					th:value="${carro.id}"></option>
+			</select> 
+			</div>
+			
+			<div class="form-group">
+			<label for="motorista">Motorista: </label> 
+			<select class="form-control" id="motorista" th:field="*{motorista}">
+				<option value="">SELECIONE</option>
+				<option th:each="motorista : ${todosMotoristas}"
+					th:text="${motorista.nome}" th:value="${motorista.id}"></option>
+			</select>
+			</div>
+			<div align="right">
+				<button class="btn btn-outline-success" type="submit" >Salvar</button>
+			</div>
+		</form>
+		</div>
+	</section>
+</body>
+</html>

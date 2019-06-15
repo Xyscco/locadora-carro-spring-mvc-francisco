@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layoutPadrao}">
+<head>
+<meta charset="UTF-8">
+<title>Cadastro de Modelo</title>
+</head>
+<body>
+	<section layout:fragment="conteudo">
+		<h1 class="text-center">Cadastro de Modelo</h1>
+		<div class="container shadow p-3 mb-5 bg-light rounded">
+		<form action="/modelo" method="POST" th:object="${modelo}">
+
+			<!-- Erros -->
+			<div th:replace="mensagemErro"></div>
+
+			<!-- Mensagem Geral -->
+			<div th:replace="mensagemGeral"></div>
+
+			<input type="hidden" th:field="*{id}" /> 
+			
+			<div class="form-group">
+			<label for="descricao">Descrição: </label> 
+			<input class="form-control" id="descricao" type="text" th:field="*{descricao}" />
+			</div>
+			
+			<div class="form-group">
+			<label for="fabricante">Fabricante: </label> 
+			<select class="form-control" id="fabricante" th:field="*{fabricante}">
+				<option value="">SELECIONE</option>
+				<option th:each="fabricante : ${todosFabricantes}" th:text="${fabricante.nome}"
+					th:value="${fabricante.id}"></option>
+			</select> 
+			</div>
+			
+			<div class="form-group">
+			<label for="categoria">Categoria: </label> 
+			<select class="form-control" id="categoria" th:field="*{categoria}">
+				<option value="">SELECIONE</option>
+				<option th:each="categoria : ${todasCategorias}"
+					th:text="${categoria.descricao}" th:value="${categoria}"></option>
+			</select>
+			</div>
+			<div align="right">
+				<button class="btn btn-outline-success" type="submit" >Salvar</button>
+			</div>
+		</form>
+		</div>
+	</section>
+</body>
+</html>

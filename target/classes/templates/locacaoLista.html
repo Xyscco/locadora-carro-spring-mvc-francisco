@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layoutPadrao}">
+<head>
+<meta charset="UTF-8">
+<title>Lista de Locacao</title>
+</head>
+<body>
+	
+	<section layout:fragment="conteudo">
+		<h1 class="text-center">Lista de Locacao</h1>
+		<div class="container">
+		<table class="table table-striped" border="1">
+			<thead>
+				<tr>
+					<th>Id</th>
+					<th>Valor Total</th>
+					<th>Data de Locação</th>
+					<th>Data de Devolução</th>
+					<th>Carro</th>
+					<th>Motorista</th>
+					<th>Ação</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="locacao : ${locacao}">
+					<td th:text="${locacao.id}"></td>
+					<td th:text="${locacao.valorTotal}"></td>
+					<td th:text="${#temporals.format(locacao.dataDeLocacao, 'dd/MM/yyyy')}"></td>
+					<td th:text="${#temporals.format(locacao.dataDeDevolucao, 'dd/MM/yyyy')}"></td>
+					<td th:text="${locacao.carro.placa}"></td>
+					<td th:text="${locacao.motorista.nome}"></td>
+					<td><a class="btn btn-success" th:href="@{/locacao/editar/{id}(id=${locacao.id})}">Editar</a>
+						<a class="btn btn-danger" onclick="return confirm('Confirma a exclusão?')"
+						th:href="@{/locacao/excluir/{id}(id=${locacao.id})}"> Excluir</a></td>
+				</tr>
+				<tr  th:if="${#lists.isEmpty(locacao)}">
+					<td colspan="8">Nenhuma serie cadastrada</td>
+				</tr>
+			</tbody>
+		</table>
+		</div>
+	</section>
+
+</body>
+</html>
